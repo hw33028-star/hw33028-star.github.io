@@ -4,11 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
     <title>FLL Mission Possible</title>
 </head>
 <body>
-    <h1 class="mspTitle">Mission Possible Website</h1>
-    <p>This is my new GitHub Pages site.</p>
-    <img src="https://github.com/hw33028-star/hw33028-star.github.io/raw/main/Team_Logo_Artwork.png" alt="Logo" width="750" height="750">
+    <h1 class="msptitle">Mission Possible Website</h1>
+    <p class="highlight">Participating in this year's 2026-27 Bioglow FLL Challenge.</p>
+    <img src="https://github.com/hw33028-star/hw33028-star.github.io/raw/main/Team_Logo_Artwork.png" alt="Logo" width="650" height="650" class="top-right-logo">
+    <p>Team Logo</p>
+    <img src="https://github.com/hw33028-star/hw33028-star.github.io/raw/main/Team_Logo_Artwork.png" alt="Logo" width="300" height="300">
+    <p>This Year's Topic Logo We're Participating In</p>
+    <img src="https://www.firstinspires.org/hs-fs/hubfs/web/brand/season/2027/first_canopy_fll_bioglow_logo_horizontal_founders_edition_rgb_fullcolor.png?width=1644&height=555&name=first_canopy_fll_bioglow_logo_horizontal_founders_edition_rgb_fullcolor.png" alt="FLL LOGO" width="450" height="190">
+    <h2 class="title">Code for our robot's mission runs: </h2>
+    <p class="fmc89">Function Main Code for Mission 8 and 9 (put the code in the bottom of the Advanced Boxor Code), Tangled and Research Platform:</p>
+    <pre><code>
+async def m8and9():
+    await gyro_move_ramped(42, speed=700, start_speed=200, ramp=300)
+    await gyro_turn(45, speed=200)
+    await gyro_move_ramped(38, speed=300, start_speed=50, ramp=30)
+    await gyro_turn(-45, speed=200)
+    await gyro_drive(5, speed=100)
+    await motor.run_for_degrees(MOTOR_LEFT, -4000, 800)
+    await motor.run_for_degrees(MOTOR_LEFT, 3900, 800)
+      </code></pre>
+
 </body>
 </html>
