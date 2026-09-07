@@ -5,11 +5,60 @@ p {
 }
 
 /* Targets the Mission Possible Title*/
-.mspTitle {
+h1.msptitle {
   color: #ffffff;
   font-weight: bold;
   font-size: 3.3rem;
   background-color: #0421c7;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
+  display: inline-block;
+}
+
+/* Targets ONLY elements with class="highlight" */
+.highlight {
+  color: #dc2626;
+  font-weight: bold;
+  background-color: #fef2f2;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+h2.title {
+  color: #c842d6;
+  font-weight: bold;
+  background-color: #7ee2e6;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3.5px;
+  display: inline-block;
+}
+
+/* Position the logo directly in the top-right corner */
+.top-right-logo {
+  position: absolute;
+  top: 1rem;      /* Distance from the top */
+  right: 1rem;    /* Distance from the right */
+  width: 100px;   /* Adjust size as needed */
+  height: auto;   /* Maintains aspect ratio */
+}
+
+p.fmc89{
+  color: #308f18;
+  font-weight: bolder;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+}
+
+pre {
+  background-color: #1e1e1e; /* Dark background */
+  color: #f8f8f2;            /* Light text */
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;          /* Adds horizontal scrollbar if code is too long */
+  font-family: 'Courier New', Courier, monospace;
+}
+
+code {
+  font-family: inherit;
 }
