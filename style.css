@@ -1,58 +1,14 @@
-/* 1. Global Variables */
-:root {
-  --primary-color: #2563eb;
-  --text-color: #1f2937;
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --font-family: system-ui, -apple-system, sans-serif;
-}
-
-/* 2. Standard CSS Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* 3. Base Styles */
-body {
-  font-family: var(--font-family);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-  padding: 2rem;
-}
-
-/* 4. Layout Structure */
-header {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-main {
-  max-width: 800px;
-  margin: 0 auto;
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-/* 5. Typography & Elements */
-h1 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-}
-
+/* Automatically applies to ALL <p> tags */
 p {
-  margin-bottom: 1rem;
+  color: #4b5563;
+  font-size: 1.1rem;
 }
 
-a {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+/* Targets ONLY elements with class="highlight" */
+.highlight {
+  color: #dc2626;
+  font-weight: bold;
+  background-color: #fef2f2;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
 }
