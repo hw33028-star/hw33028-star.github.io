@@ -5,10 +5,11 @@ p {
 }
 
 /* Targets ONLY elements with class="highlight" */
-.highlight {
-  color: #dc2626;
+.mspTitle {
+  color: #4e76ed;
   font-weight: bold;
-  background-color: #fef2f2;
+  font-size: 3.3rem;
+  background-color: #0421c7;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
