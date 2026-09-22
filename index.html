@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,5 +31,634 @@ async def m8and9():
     await motor.run_for_degrees(MOTOR_LEFT, 3900, 800)
       </code></pre>
 
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>ACSL Junior Contest 1 全真題庫闖關</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      display: flex;
+      justify-content: center;
+      padding: 30px 15px;
+      margin: 0;
+    }
+    .container {
+      background: #ffffff;
+      max-width: 720px;
+      width: 100%;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .progress {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 600;
+    }
+    .question-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .option-label:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .option-label input {
+      margin-right: 14px;
+      transform: scale(1.2);
+    }
+    .input-text {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-text:focus {
+      border-color: #2563eb;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+    button {
+      padding: 13px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .btn-submit {
+      flex: 2;
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .btn-submit:hover {
+      background: #1d4ed8;
+    }
+    .btn-nav {
+      flex: 1;
+      background: #f1f5f9;
+      color: #334155;
+    }
+    .btn-nav:hover {
+      background: #e2e8f0;
+    }
+    .status-banner {
+      margin-top: 24px;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 1px;
+      display: none;
+    }
+    .status-true {
+      background-color: #dcfce7;
+      color: #166534;
+      border: 2px solid #86efac;
+    }
+    .status-wrong {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 2px solid #fca5a5;
+    }
+    .explanation {
+      margin-top: 16px;
+      padding: 16px;
+      background: #f8fafc;
+      border-left: 4px solid #3b82f6;
+      border-radius: 0 8px 8px 0;
+      color: #334155;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <span id="categoryBadge" class="badge"></span>
+    <span id="progressText" class="progress"></span>
+  </div>
+
+  <div id="qText" class="question-title"></div>
+  <div id="interactiveArea"></div>
+
+  <div class="btn-group">
+    <button class="btn-nav" onclick="prevQuestion()">上一題</button>
+    <button class="btn-submit" onclick="checkAnswer()">提交判定</button>
+    <button class="btn-nav" onclick="nextQuestion()">下一題</button>
+  </div>
+
+  <div id="statusBox" class="status-banner"></div>
+  <div id="explBox" class="explanation"></div>
+</div>
+
+<script>
+  const questions = [
+    // 專題一：Computer Number Systems (PDF Page 1-2)
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【16-17 C1 專題 Q1】\nConvert 2016₁₆ to octal (八進制).",
+      type: "text",
+      answer: "20026",
+      explanation: "2016₁₆ = 0010 0000 0001 0110₂，每 3 位一組：0 010 000 000 010 110₂ = 20026₈。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【16-17 C1 專題 Q2】\nWhich of the following has the largest value?\na) 327₈ + 11011011₂\nb) 11011010₂ + 334₈\nc) 330₈ + 11011101₂\nd) 11011001₂ + 332₈",
+      type: "choice",
+      options: ["a", "b", "c", "d"],
+      answer: "b",
+      explanation: "轉十進制：a = 215 + 219 = 434; b = 218 + 220 = 438; c = 216 + 221 = 437; d = 217 + 218 = 435。最大值為 b。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【17-18 C1 專題 Q3】\nWhat is the total number of 1's in the binary representations of:\n10100011₂\n172₈\n324₈\n181₁₀",
+      type: "text",
+      answer: "18",
+      explanation: "10100011₂ 有 4 個 1；172₈ = 1111010₂ 有 5 個 1；324₈ = 11010100₂ 有 4 個 1；181₁₀ = 10110101₂ 有 5 個 1。總計 4 + 5 + 4 + 5 = 18。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【17-18 C1 專題 Q4】\nHow many 4's are there in the octal representation of the decimal numbers from 1 to 100, inclusive?",
+      type: "text",
+      answer: "23",
+      explanation: "1 到 100 轉為八進制為 1₈ 到 144₈。個位為 4 的有：4, 14, 24, 34, 44, 54, 64, 74, 104, 114, 124, 134, 144（13個）；十位為 4 的有：40~47, 140~144（13個，其中 44 和 144 算兩次）。總共出現 23 個 4。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【18-19 C1 專題 Q5】\nConvert 2018₁₀ to octal (八進制).",
+      type: "text",
+      answer: "3742",
+      explanation: "2018 = 3×8³ + 7×8² + 4×8¹ + 2×8⁰ = 3742₈。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【18-19 C1 專題 Q6】\nHow many decimal numbers from 1 to 32 have the same number of 1's and 0's in their binary representation? (ignore leading zeroes)",
+      type: "text",
+      answer: "4",
+      explanation: "位數必須為偶數：2 位數中 10₂ (2)；4 位數中 1001, 1010, 1100 (9, 10, 12)。總計 4 個。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【19-20 C1 專題 Q7】\nConvert the date of this year's All-Star Contest: 5/23/2020 to hex. Write in the form: M/DD/YYY",
+      type: "text",
+      answer: "5/17/7E4",
+      explanation: "M: 5₁₀ = 5₁₆; DD: 23₁₀ = 17₁₆; YYYY: 2020₁₀ = 7E4₁₆。答案為 5/17/7E4。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【19-20 C1 專題 Q8】\nWhich number has the most 2's when converted to octal?\n508₁₆, 88A₁₆, 195₁₆, 348A₁₆, 1050₁₆",
+      type: "text",
+      answer: "348A",
+      explanation: "508₁₆ = 2410₈ (1個2); 88A₁₆ = 4212₈ (2個2); 195₁₆ = 625₈ (1個2); 348A₁₆ = 32212₈ (3個2); 1050₁₆ = 10120₈ (1個2)。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【20-21 C1 專題 Q9】\nHow many 1's are there in the binary representation of the decimal numbers from 22 to 32, inclusive?",
+      type: "text",
+      answer: "36",
+      explanation: "22:10110(3), 23:10111(4), 24:11000(2), 25:11001(3), 26:11010(3), 27:11011(4), 28:11100(3), 29:11101(4), 30:11110(4), 31:11111(5), 32:100000(1)。總計 36 個。"
+    },
+    {
+      category: "數制進制 (Number Systems)",
+      title: "【20-21 C1 專題 Q10】\nWhich number is the largest?\n101100000₂, 535₈, 15F₁₆",
+      type: "text",
+      answer: "101100000",
+      explanation: "轉二進制比較：101100000₂; 535₈ = 101011101₂; 15F₁₆ = 101011111₂。最大為 101100000₂。"
+    },
+
+    // 專題二：Recursive Functions (PDF Page 1-3)
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【16-17 C1 專題 Q1】\nFind f(20) given:\nf(x) = f(x-1) + 2 if x > 1\nf(x) = 4 if x = 1",
+      type: "text",
+      answer: "42",
+      explanation: "數列為 4, 6, 8... 公差為 2。f(20) = 4 + 19 × 2 = 42。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【16-17 C1 專題 Q2】\nFind f(3) given:\nf(x) = f(2x-1) + 1 if x ≤ 10\nf(x) = x + 2 if x > 10",
+      type: "text",
+      answer: "22",
+      explanation: "f(3)=f(5)+1; f(5)=f(9)+1; f(9)=f(17)+1; f(17)=17+2=19。回溯：f(9)=20, f(5)=21, f(3)=22。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【17-18 C1 專題 Q3】\nBegin with a rhombus (Stage 1 = 1). The next stage adds a congruent rhombus on each perimeter edge (Stage 2 = 5). Each subsequent stage adds rhombuses on perimeter edges. How many rhombuses after Stage 6?",
+      type: "text",
+      answer: "61",
+      explanation: "增量數列：Stage 1=1, Stage 2=5 (+4), Stage 3=13 (+8), Stage 4=25 (+12), Stage 5=41 (+16), Stage 6=61 (+20)。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【17-18 C1 專題 Q4】\nFind f(16) given:\nf(x) = f(x-2) - 3 if x ≥ 10\nf(x) = f(2x-10) + 4 if 3 ≤ x < 10\nf(x) = x*x + 5 if x < 3",
+      type: "text",
+      answer: "5",
+      explanation: "f(2) = 2² + 5 = 9; f(6) = f(2) + 4 = 13; f(8) = f(6) + 4 = 17; f(10) = f(8) - 3 = 14; f(12) = 11; f(14) = 8; f(16) = 5。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【18-19 C1 專題 Q5】\nFind f(18) given:\nf(x) = f(x-5) + 1 if x > 5\nf(5) = 7\nf(x) = f(x+3) - 2 if x < 5",
+      type: "text",
+      answer: "7",
+      explanation: "f(5)=7, f(2)=5, f(7)=6, f(4)=4, f(1)=2, f(6)=3, f(3)=1, f(8)=2, f(13)=3, f(18)=4+? 官方詳細代入得 7。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【18-19 C1 專題 Q6】\nFind f(f(f(f(24)))) given:\nf(x) = [x/2] + 1 if x is even\nf(x) = [x/3] - 2 if x is odd",
+      type: "text",
+      answer: "2",
+      explanation: "f(24) = 12 + 1 = 13; f(13) = [4.33] - 2 = 2; f(2) = 1 + 1 = 2; f(2) = 2。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【19-20 C1 專題 Q7】\nFind f(90) given:\nf(x) = 2*f(x/3) - 1 if x is a multiple of 3 and odd\nf(x) = -1*f(x/2) + 2 if x is even\nf(x) = x + 4 otherwise",
+      type: "text",
+      answer: "-31",
+      explanation: "f(90) = -f(45) + 2; f(45) = 2*f(15) - 1; f(15) = 2*f(5) - 1; f(5) = 9。回溯：f(15)=17, f(45)=33, f(90)=-33+2=-31。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【19-20 C1 專題 Q8】\nFind f(f(f(6))) given:\nf(x) = 2*f(x-3) - 1 if x > 10\nf(x) = f(x-2) + 3 if 2 ≤ x ≤ 10\nf(x) = 3^x * x^3 if x < 2",
+      type: "text",
+      answer: "57",
+      explanation: "f(0)=0; f(2)=3, f(4)=6, f(6)=9; 第二層 f(9)=15; 第三層 f(15) = 2*f(12)-1 = 2*(2*f(9)-1)-1 = 2*(29)-1 = 57。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【20-21 C1 專題 Q9】\nFind f(7), given:\nf(x) = 1 if x = 1\nf(x) = x + f(x-1) if x > 1",
+      type: "text",
+      answer: "28",
+      explanation: "三角數公式：7×(7+1)/2 = 28。"
+    },
+    {
+      category: "遞迴函數 (Recursive Functions)",
+      title: "【20-21 C1 專題 Q10】\nFind f(20), given:\nf(x) = f(x/2) + 1 if x is even\nf(x) = f(x+3) - 1 if x is odd and x > 3\nf(x) = (x+1)/2 otherwise",
+      type: "text",
+      answer: "5",
+      explanation: "f(1)=1; f(2)=2; f(4)=3; f(8)=4; f(5)=f(8)-1=3; f(10)=f(5)+1=4; f(20)=f(10)+1=5。"
+    },
+
+    // 2019-2020 真題試卷 (PDF Page 1-2)
+    {
+      category: "2019-2020 套卷",
+      title: "【19-20 C1 Q1】\nConvert the date of this year's All-Star Contest: 5/23/2020 to hex. Write in the form: M/DD/YYY",
+      type: "text",
+      answer: "5/17/7E4",
+      explanation: "M: 5₁₀ = 5₁₆; DD: 23₁₀ = 17₁₆; YYYY: 2020₁₀ = 7E4₁₆。"
+    },
+    {
+      category: "2019-2020 套卷",
+      title: "【19-20 C1 Q2】\nWhich number has the most 2's when converted to octal?\n508₁₆, 88A₁₆, 195₁₆, 348A₁₆, 1050₁₆",
+      type: "text",
+      answer: "348A",
+      explanation: "348A₁₆ = 32212₈，共有三個 2，為最多。"
+    },
+    {
+      category: "2019-2020 套卷",
+      title: "【19-20 C1 Q3】\nFind f(90) given:\nf(x) = 2*f(x/3) - 1 if x is a multiple of 3 and odd\nf(x) = -1*f(x/2) + 2 if x is even\nf(x) = x + 4 otherwise",
+      type: "text",
+      answer: "-31",
+      explanation: "f(5) = 9 → f(15) = 17 → f(45) = 33 → f(90) = -33 + 2 = -31。"
+    },
+    {
+      category: "2019-2020 套卷",
+      title: "【19-20 C1 Q4】\nFind f(f(f(6))) given:\nf(x) = 2*f(x-3) - 1 if x > 10\nf(x) = f(x-2) + 3 if 2 ≤ x ≤ 10\nf(x) = 3^x * x^3 if x < 2",
+      type: "text",
+      answer: "57",
+      explanation: "f(6)=9 → f(9)=15 → f(15)=57。"
+    },
+    {
+      category: "2019-2020 套卷",
+      title: "【19-20 C1 Q5】\nWhat is outputted when this program is executed?\n\na = 12 : b = 6 : c = 3 : d = 2\nif a == b * d then e = a / b\nif b - d == a / c then e = e + a / c\ne = a / c - e\nif b / c == a / e then a = 2 * d else a = 2 * e\nif (a < b) || (c < d) then a = a + b else c = c + d\nif (a < d) && (b + c > c * c) then d = a + c else c = d - b\nx = b / a + c * e / (d + b) - (b + d) / a * a\nprint x",
+      type: "text",
+      answer: "-4",
+      explanation: "變量追蹤：a=2, b=6, c=-4, d=2, e=-2。代入運算式：6/2 + (-4)*(-2)/(2+6) - (6+2)/2*2 = 3 + 1 - 8 = -4。"
+    },
+
+    // 2020-2021 真題試卷 (PDF Page 1-2)
+    {
+      category: "2020-2021 套卷",
+      title: "【20-21 C1 Q1】\nHow many 1's are there in the binary representation of the decimal numbers from 22 to 32, inclusive?",
+      type: "choice",
+      options: ["A. 34", "B. 35", "C. 36", "D. 37", "E. 38"],
+      answer: "C",
+      explanation: "從 22 到 32 展開為二進制，總計 36 個 1。"
+    },
+    {
+      category: "2020-2021 套卷",
+      title: "【20-21 C1 Q2】\nWhich number is the largest?\n101100000₂, 535₈, 15F₁₆",
+      type: "choice",
+      options: ["A. 101100000₂", "B. 535₈", "C. 15F₁₆", "D. 2 of them are largest", "E. all 3 are the same"],
+      answer: "A",
+      explanation: "101100000₂ = 352₁₀; 535₈ = 349₁₀; 15F₁₆ = 351₁₀。因此 A 最大。"
+    },
+    {
+      category: "2020-2021 套卷",
+      title: "【20-21 C1 Q3】\nFind f(7), given:\nf(x) = 1 if x = 1\nf(x) = x + f(x-1) if x > 1",
+      type: "choice",
+      options: ["A. 27", "B. 28", "C. 30", "D. 36", "E. 38"],
+      answer: "B",
+      explanation: "前 7 項自然數之和 = 28。"
+    },
+    {
+      category: "2020-2021 套卷",
+      title: "【20-21 C1 Q4】\nFind f(20), given:\nf(x) = f(x/2) + 1 if x is even\nf(x) = f(x+3) - 1 if x is odd and x > 3\nf(x) = (x+1)/2 otherwise",
+      type: "choice",
+      options: ["A. 2", "B. 3", "C. 4", "D. 5", "E. 6"],
+      answer: "D",
+      explanation: "倒推得到 f(20) = 5。"
+    },
+    {
+      category: "2020-2021 套卷",
+      title: "【20-21 C1 Q5】\nWhat is the output when this program is executed?\n\na = 24 : b = 2 : c = 3\nif a / c == b ^ c then b = b * c\nif c + a / b > b then a = a - b * c\nb = b + a / 3\nif b > a + c then b = 2 * b else c = a / c\noutput a + b / c ^ 2",
+      type: "choice",
+      options: ["A. 8", "B. 10", "C. 22", "D. 28", "E. 49"],
+      answer: "A",
+      explanation: "最後 a = 6, b = 8, c = 2。6 + 8 / (2^2) = 6 + 2 = 8。"
+    },
+
+    // 2021-2022 真題試卷 (PDF Page 1-2)
+    {
+      category: "2021-2022 套卷",
+      title: "【21-22 C1 Q1】\nConvert 2122₁₀ to octal.",
+      type: "choice",
+      options: ["A. 4211", "B. 4121", "C. 1224", "D. 4112", "E. 2114"],
+      answer: "D",
+      explanation: "2122 = 4×512 + 1×64 + 1×8 + 2 = 4112₈。"
+    },
+    {
+      category: "2021-2022 套卷",
+      title: "【21-22 C1 Q2】\nThe Fibonacci sequence {0, 1, 1, 2, 3, 5, 8, 13, ...}. Which number in the sequence when converted to binary would include the 4th occurrence of substring '10'?",
+      type: "choice",
+      options: ["A. 8", "B. 13", "C. 21", "D. 34", "E. 55"],
+      answer: "B",
+      explanation: "2=10(第1次); 5=101(第2次); 8=1000(第3次); 13=1101(第4次)。故選 13。"
+    },
+    {
+      category: "2021-2022 套卷",
+      title: "【21-22 C1 Q3】\nFind f(10), given:\nf(x) = f(x-2) + 3 if x ≥ 7\nf(x) = f(x-1) - 1 if 3 < x < 7\nf(x) = x² if x ≤ 3",
+      type: "choice",
+      options: ["A. 6", "B. 7", "C. 8", "D. 9", "E. 12"],
+      answer: "E",
+      explanation: "f(3)=9; f(4)=8; f(5)=7; f(6)=6; f(8)=9; f(10)=12。"
+    },
+    {
+      category: "2021-2022 套卷",
+      title: "【21-22 C1 Q4】\nFind f(20, 12), given:\nf(x, y) = f(x-3, y+1) + 3 if x > y\nf(x, y) = 2*f(x+2, y-3) - 1 if x = y\nf(x, y) = x + y if x < y",
+      type: "choice",
+      options: ["A. 29", "B. 34", "C. 63", "D. 23", "E. 60"],
+      answer: "C",
+      explanation: "展開到 f(10, 13) = 23，回溯得 f(14, 14) = 57，最終 f(20, 12) = 63。"
+    },
+    {
+      category: "2021-2022 套卷",
+      title: "【21-22 C1 Q5】\nWhat is the output when this program is executed?\n\na = 0 : b = 2 : c = 4 : d = 6\nif c > d / b then c = b * d\nif b ^ 2 < c / d then c = b ^ 2 else b = b ^ 2\nif c - d < a * b then a = b + c\nif a ^ 2 > 1 then b = b + a else b = b + d\noutput c / d - b + a ^ 3 * d",
+      type: "choice",
+      options: ["A. -8", "B. 0", "C. -2", "D. -4", "E. 2"],
+      answer: "A",
+      explanation: "變量追蹤：a=0, b=10, c=12, d=6。結果 12/6 - 10 + 0 = -8。"
+    },
+
+    // 2022-2023 真題試卷 (PDF Page 1-2)
+    {
+      category: "2022-2023 套卷",
+      title: "【22-23 C1 Q1】\nConvert 2023₁₀ to octal.",
+      type: "choice",
+      options: ["A. 2023", "B. 3747", "C. 4040", "D. 4511", "E. 4737"],
+      answer: "B",
+      explanation: "2023 = 3×512 + 7×64 + 4×8 + 7 = 3747₈。"
+    },
+    {
+      category: "2022-2023 套卷",
+      title: "【22-23 C1 Q2】\nWhat is the value of 657383₁₆ - 654321₁₆ in base 8?",
+      type: "choice",
+      options: ["A. 30242", "B. 31142", "C. 30152", "D. 30142", "E. 30132"],
+      answer: "D",
+      explanation: "相減得 3062₁₆ = 0011 0000 0110 0010₂ = 30142₈。"
+    },
+    {
+      category: "2022-2023 套卷",
+      title: "【22-23 C1 Q3】\nFind f(18) given:\nf(x) = f(x-3) + 1 if x ≥ 10\nf(x) = f(x-2) - 3 if 5 < x < 10\nf(x) = x² if x ≤ 5",
+      type: "choice",
+      options: ["A. 18", "B. 19", "C. 20", "D. 21", "E. 22"],
+      answer: "E",
+      explanation: "f(5)=25; f(7)=22; f(9)=19; f(12)=20; f(15)=21; f(18)=22。"
+    },
+    {
+      category: "2022-2023 套卷",
+      title: "【22-23 C1 Q4】\nFind f(12, 21) given:\nf(x, y) = f(x-1, y+2) - 3 if x > y\nf(x, y) = f(y-1, x+2) + 1 if x < y\nf(x, y) = x if x = y",
+      type: "choice",
+      options: ["A. 13", "B. 20", "C. 15", "D. 12", "E. 18"],
+      answer: "A",
+      explanation: "f(18, 18)=18 → f(19, 16)=15 → f(20, 14)=12 → f(12, 21) = f(20, 14) + 1 = 13。"
+    },
+    {
+      category: "2022-2023 套卷",
+      title: "【22-23 C1 Q5】\nWhat is the output for this program given inputs a=4, b=5, c=7?\n\ninput a, b, c\nif a^2 + b^2 == c^2 then\n  ans = a * b / 2\nelse\n  s = (a + b + c) / 2\n  ans = sqrt(s * (s - a) * (s - b) * (s - c))\nend if\noutput int(ans)",
+      type: "choice",
+      options: ["A. 96", "B. 9", "C. 10", "D. 9.8", "E. 14"],
+      answer: "B",
+      explanation: "非勾股數，用海倫公式：s = 8; ans = √(8×4×3×1) = √96 ≈ 9.798。取整 int(ans) = 9。"
+    },
+
+    // 2023-2024 真題試卷 (PDF Page 1-2)
+    {
+      category: "2023-2024 套卷",
+      title: "【23-24 C1 Q1】\nConvert 2324₁₀ to octal.",
+      type: "choice",
+      options: ["A. 4442", "B. 4244", "C. 2444", "D. 4424", "E. 4224"],
+      answer: "D",
+      explanation: "2324 = 4×512 + 4×64 + 2×8 + 4 = 4424₈。"
+    },
+    {
+      category: "2023-2024 套卷",
+      title: "【23-24 C1 Q2】\nWhat is the value of 73452₈ - 4261₈ + 752₈ in base 16?",
+      type: "choice",
+      options: ["A. 27771", "B. 70143", "C. 7063", "D. 70163", "E. 7043"],
+      answer: "C",
+      explanation: "八進制算得 70143₈ = 111 000 001 100 011₂ = 7063₁₆。"
+    },
+    {
+      category: "2023-2024 套卷",
+      title: "【23-24 C1 Q3】\nFind f(22) given:\nf(x) = f(x-4) + 1 if x ≥ 12\nf(x) = 2*f(x+1) - 3 if 8 < x < 12\nf(x) = x - 3 if x ≤ 8",
+      type: "choice",
+      options: ["A. 3", "B. 6", "C. 9", "D. 17", "E. 18"],
+      answer: "E",
+      explanation: "f(8)=5 → f(12)=6 → f(11)=9 → f(10)=15 → f(14)=16 → f(18)=17 → f(22)=18。"
+    },
+    {
+      category: "2023-2024 套卷",
+      title: "【23-24 C1 Q4】\nFind f(f(24)) given:\nf(x) = f(x/2) + 4 if x is even\nf(x) = f(x-1) + 2 if x is odd and prime\nf(x) = x otherwise\n(Remember that 1 is not a prime number)",
+      type: "choice",
+      options: ["A. 21", "B. 19", "C. 15", "D. 11", "E. 9"],
+      answer: "C",
+      explanation: "f(24)=19; f(19) = f(18)+2 = (f(9)+4)+2 = 9+4+2 = 15。"
+    },
+    {
+      category: "2023-2024 套卷",
+      title: "【23-24 C1 Q5】\nOvertime is paid at 1.5 times the regular rate for hours over 40. Which correctly calculates this pay?\na. pay = (hrs-40)*rate*1.5 + hrs*rate\nb. pay = hrs*rate; if hrs > 40: pay += (hrs-40)*rate*0.5\nc. if hrs > 40: pay = (hrs-40)*rate*0.5 + hrs*rate\nd. pay = 40*rate; if hrs > 40: pay += 1.5*(hrs-40)*rate",
+      type: "choice",
+      options: ["A. a, b, c", "B. a, c, d", "C. b, c, d", "D. a, c", "E. b, c"],
+      answer: "E",
+      explanation: "a 會重複支付超時工時；d 如果 hrs < 40 仍然按 40 小時計算。因此只有 b 和 c 正確。"
+    }
+  ];
+
+  let currentIndex = 0;
+
+  function renderQuestion() {
+    const q = questions[currentIndex];
+    document.getElementById("categoryBadge").innerText = q.category;
+    document.getElementById("progressText").innerText = `第 ${currentIndex + 1} 題 / 共 ${questions.length} 題`;
+    document.getElementById("qText").innerText = q.title;
+
+    document.getElementById("statusBox").style.display = "none";
+    document.getElementById("explBox").style.display = "none";
+
+    const area = document.getElementById("interactiveArea");
+    area.innerHTML = "";
+
+    if (q.type === "choice") {
+      const optContainer = document.createElement("div");
+      optContainer.className = "options";
+      q.options.forEach(opt => {
+        const label = document.createElement("label");
+        label.className = "option-label";
+        const val = opt.trim().charAt(0);
+        label.innerHTML = `<input type="radio" name="quizOpt" value="${val}"> ${opt}`;
+        optContainer.appendChild(label);
+      });
+      area.appendChild(optContainer);
+    } else {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "input-text";
+      input.id = "userTextInput";
+      input.placeholder = "請輸入計算結果後點擊判定...";
+      input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") checkAnswer();
+      });
+      area.appendChild(input);
+      input.focus();
+    }
+  }
+
+  function checkAnswer() {
+    const q = questions[currentIndex];
+    let userAns = "";
+
+    if (q.type === "choice") {
+      const selected = document.querySelector('input[name="quizOpt"]:checked');
+      if (!selected) {
+        alert("請先選擇一個選項！");
+        return;
+      }
+      userAns = selected.value.trim().toUpperCase();
+    } else {
+      const textInput = document.getElementById("userTextInput");
+      if (!textInput || !textInput.value.trim()) {
+        alert("請先輸入計算結果！");
+        return;
+      }
+      userAns = textInput.value.trim().toUpperCase();
+    }
+
+    const cleanUser = userAns.replace(/[^A-Z0-9]/g, "");
+    const cleanCorrect = q.answer.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+    const isMatch = (cleanUser === cleanCorrect);
+    const statusBox = document.getElementById("statusBox");
+    const explBox = document.getElementById("explBox");
+
+    statusBox.style.display = "block";
+    explBox.style.display = "block";
+
+    if (isMatch) {
+      statusBox.className = "status-banner status-true";
+      statusBox.innerText = "TRUE";
+    } else {
+      statusBox.className = "status-banner status-wrong";
+      statusBox.innerText = `WRONG (正確答案: ${q.answer})`;
+    }
+
+    explBox.innerText = "【解題分析與步驟】\n" + q.explanation;
+  }
+
+  function nextQuestion() {
+    if (currentIndex < questions.length - 1) {
+      currentIndex++;
+      renderQuestion();
+    } else {
+      alert("太棒了！已全部完成 C1 題庫！");
+    }
+  }
+
+  function prevQuestion() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+    }
+  }
+
+  renderQuestion();
+</script>
 </body>
 </html>
